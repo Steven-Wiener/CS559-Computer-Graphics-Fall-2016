@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<canvas id="myCanvas" width="220" height="435" style="border:1px solid #000000;"></canvas>
+</body>
+<script> "use strict"
+	window.onload = function() {
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+		
+		// Head
+		context.beginPath();
+		context.rect(60,25,100,100);
+		context.fillStyle = "#777";
+		context.fill();
+
+		// Body
+		context.beginPath();
+		context.rect(45,125,130,175);
+		context.fillStyle = "#555";
+		context.fill();
+
+		// Left Arm
+		context.beginPath();
+		context.rect(10,125,30,120);
+		context.fillStyle = "#888";
+		context.fill();
+
+		// Left Shoulder
+		context.beginPath();
+		context.rect(40,125,5,30);
+		//context.fillStyle = "#800";
+		context.fill();
+
+		// Right Arm
+		context.beginPath();
+		context.rect(180,125,30,120);
+		//context.fillStyle = "#800";
+		context.fill();
+
+		// Right Shoulder
+		context.beginPath();
+		context.rect(175,125,5,30);
+		//context.fillStyle = "#800";
+		context.fill();
+
+		// Left Leg
+		context.beginPath();
+		context.rect(55,300,30,120);
+		//context.fillStyle = "#800";
+		context.fill();
+
+		// Right Leg
+		context.beginPath();
+		context.rect(135,300,30,120);
+		//context.fillStyle = "#800";
+		context.fill();
+
+		// Left eye fill
+		context.beginPath();
+		context.rect(80,50,15,15);
+		context.fillStyle = "#DDD";
+		context.fill();
+
+		// Right eye fill
+		context.beginPath();
+		context.rect(125,50,15,15);
+		//context.fillStyle = "#DDD";
+		context.fill();
+
+		// Mouth fill
+		context.beginPath();
+		context.rect(80,90,60,15);
+		//context.fillStyle = "#DDD";
+		context.fill();
+
+		// Left eye border
+		context.beginPath();
+		context.rect(80,50,15,15);
+		context.strokeStyle = "#330";
+		context.lineWidth = 4;
+		context.stroke();
+
+		// Right eye border
+		context.beginPath();
+		context.rect(125,50,15,15);
+		//context.strokeStyle = "#330";
+		context.lineWidth = 4;
+		context.stroke();
+
+		// Mouth border
+		context.beginPath();
+		context.rect(80,90,60,15);
+		context.strokeStyle = "#330";
+		context.lineWidth = 4;
+		context.stroke();
+
+		// Left Hand Top
+		context.beginPath();
+		context.rect(5,245,30,10);
+		context.fillStyle = "#330";
+		context.fill();
+
+		// Left Hand Left
+		context.beginPath();
+		context.rect(5,245,10,30);
+		//context.fillStyle = "#EE0";
+		context.fill();
+
+		// Left Hand Left
+		context.beginPath();
+		context.rect(35,245,10,30);
+		//context.fillStyle = "#EE0";
+		context.fill();
+
+		// Right Hand Top
+		context.beginPath();
+		context.rect(180,245,30,10);
+		//context.fillStyle = "#EE0";
+		context.fill();
+
+		// Right Hand Left
+		context.beginPath();
+		context.rect(175,245,10,30);
+		//context.fillStyle = "#EE0";
+		context.fill();
+
+		// Right Hand Right
+		context.beginPath();
+		context.rect(205,245,10,30);
+		//context.fillStyle = "#EE0";
+		context.fill();
+
+		// Left Foot
+		context.beginPath();
+		context.rect(50,400,40,30);
+		//context.fillStyle = "#EE0";
+		context.fill();
+
+		// Left Foot
+		context.beginPath();
+		context.rect(130,400,40,30);
+		//context.fillStyle = "#EE0";
+		context.fill();
+		
+		// Top Button
+		context.beginPath();
+		context.moveTo(110,145);
+		context.lineTo(95,170);
+		context.lineTo(125,170);
+		context.closePath();
+		context.fillStyle="#EE0";
+		context.fill();
+		context.stroke();
+		
+		// Middle Button
+		context.beginPath();
+		context.moveTo(110,190);
+		context.lineTo(95,215);
+		context.lineTo(125,215);
+		context.closePath();
+		context.fillStyle="#EE0";
+		context.fill();
+		context.stroke();
+		
+		// Bottom Button
+		context.beginPath();
+		context.moveTo(110,235);
+		context.lineTo(95,260);
+		context.lineTo(125,260);
+		context.closePath();
+		context.fillStyle="#EE0";
+		context.fill();
+		context.stroke();
+	};
+</script>
+<head>
+	<meta name="description" content="Canvas Drawing Example">
+	<meta charset="utf-8">
+	<title>Canvas Drawing Example</title>
+</head>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+	<br/>
+	<input id="slider1" type="range" min="0" max=".5" step=".05"/> Speed
+</body>
+<script> "use strict"
+	window.onload = function setup() { "use strict";
+  var canvas = document.getElementById('myCanvas');
+  var slider1 = document.getElementById('slider1');
+  slider1.value = .1;
+  var y = 50;
+  function draw() {
+    var context = canvas.getContext('2d');
+    canvas.width = canvas.width;
+    var speed = slider1.value;
+    
+    function DrawAxe() {
+      context.beginPath();
+      context.rect(0,0,20,100);
+      context.fillStyle = "#663300";
+      context.closePath();
+      context.fill();      
+      context.beginPath();
+      context.fillStyle = "#666666";
+      context.moveTo(25,100);
+      context.lineTo(50,100);
+      context.lineTo(50,75);
+      context.lineTo(0,100);
+      context.closePath();
+      context.fill();
+    }
+    
+    function DrawRobot() {
+      //Core
+      context.beginPath();
+      context.rect(130,75,50,150);
+      context.fillStyle = "#b3b3b3";
+      context.fill();
+      //Neck
+      context.beginPath();
+      context.rect(130,125,50,5);
+      context.fillStyle = "#333333";
+      context.fill();
+      //Belt
+      context.beginPath();
+      context.rect(130,205,50,5);
+      context.fillStyle = "#333333";
+      context.fill();
+      //Eye
+      context.beginPath();
+      context.rect(130,85,10,10);
+      context.fillStyle = "#e6e600";
+      context.fill();
+      //Mouth
+      context.beginPath();
+      context.rect(130,105,15,8);
+      context.fillStyle = "#ff794d";
+      context.fill();
+      //Eye Border
+      context.beginPath();
+      context.rect(131,85,10,10);
+      context.strokeStyle = "#333333";
+      context.lineWidth = 2;
+      context.stroke();
+      
+    }
+    
+    function DrawLeg() {
+      //Leg
+      context.beginPath();
+      context.rect(135,225,15,75);
+      context.fillStyle = "#b3b3b3";
+      context.fill();
+      //Leg
+      context.beginPath();
+      context.rect(135,225,15,75);
+      context.strokeStyle = "333333";
+      context.lineWidth = 2;
+      context.stroke();
+      //Feet
+      context.beginPath();
+      context.rect(128,285,25,20);
+      context.fillStyle = "#333333";
+      context.fill();
+    }
+ 
+    context.translate((-4*y % 50)-25,0)
+    context.translate(250,150);
+    context.rotate(180*Math.PI/180);
+    context.rotate(-y);
+    DrawAxe();
+    context.rotate(180*Math.PI/180);
+    context.rotate(y);
+    context.translate(-150,-150);
+    DrawRobot();
+    context.translate(150,150);
+    context.rotate(-y);
+    DrawAxe();
+    context.rotate(y);
+    context.translate(-150,-150);
+    
+    context.translate((-y % 40)+30,0);
+    DrawLeg();
+    context.translate(y % 40,0);
+    
+    context.translate(-2*y % 25,0);
+    DrawLeg();
+    context.translate(2*y % 25,0);
+    
+    y += speed % 1;
+    window.requestAnimationFrame(draw);
+  }
+  window.requestAnimationFrame(draw);
+}
+window.onload = setup;
+
+
+</script>
+<head>
+  <meta name="description" content="Program 2">
+  <meta charset="utf-8">
+  <title>Axe Swinging Robot</title>
+</head>
+</html>

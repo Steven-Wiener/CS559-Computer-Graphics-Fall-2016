@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Graphics town framework code by Mike Gleicher
+  -- written October, 2015
+  -->
+<head>
+    <meta charset="UTF-8">
+    <title>Random World</title>
+</head>
+<body>
+<h2> Welcome to Random Snow World. </h2>
+<h3> Author: Steven Wiener 12.11.16 </h3>
+<p> Improvements have been made to the helicopter: The blades now spin and it follows a path.
+<br> Snow is generated at a location high above the ground in several clusters (use fly mode to see),
+<br> and is spread out from this location with random x and z trajectory, rotating around the y axis slowly as it does so.
+<br> Other improvements are clear to see (skybox, additional textures) </p>
+<!-- load this stuff first -->
+<script src="Libraries/twgl-full.js"></script>
+<script src="Libraries/gl-matrix-min.js"></script>
+<script src="Libraries/panel.js"></script>
+<script src="Libraries/arcball.js"></script>
+<script src="grobject.js"></script>
+<script src="Objects/ground.js"></script>
+
+<!-- This is where we load the objects for the world -->
+<script src="Objects/cube.js"></script>
+<script src="Objects/house.js"></script>
+<script src="Objects/helicopter.js"></script>
+<script src="Objects/ring.js"></script>
+<script src="Objects/cylinder.js"></script>
+<script src="Objects/cone.js"></script>
+<script src="Objects/sphere.js"></script>
+<script src="Objects/snow.js"></script>
+<script src="Objects/skybox.js"></script>
+
+<!-- This gets loaded LAST (actually, it probably doesn't have to) -->
+<script src="graphicstown.js"></script>
+</body>
+
+<script id="tex-vs" type="notjs">
+    precision highp float;
+
+    attribute vec3 vpos;
+    attribute vec3 vnormal;
+	attribute vec2 vtexCoord;
+    varying vec3 outColor;
+
+    uniform mat4 view;
+    uniform mat4 proj;
+    uniform mat4 model;
+    uniform vec3 lightdir;
+    uniform vec3 color;
+	varying vec2 ftexCoord;
+
+    void main(void) {
+        gl_Position = proj * view * model * vec4(vpos, 1.0);
+        vec4 normal = normalize(model * vec4(vnormal,0.0));
+        float diffuse = .5 + .5*abs(dot(normal, vec4(lightdir,0.0)));
+        outColor = color * diffuse;
+		ftexCoord = vtexCoord;
+    }
+</script>
+<script id="tex-fs" type="notjs">
+    precision highp float;
+    varying vec3 outColor;
+	varying vec2 ftexCoord;
+	uniform sampler2D texSampler;
+	
+    void main(void) {
+		vec3 texColor = texture2D(texSampler, ftexCoord).xyz;
+        gl_FragColor = vec4(texColor * outColor, 1.0);
+    }
+</script>
+
+<script id="phong-vs" type="notjs">
+    precision highp float;
+
+    attribute vec3 vpos;
+    attribute vec3 vnormal;
+    varying vec3 outColor;
+
+    uniform mat4 view;
+    uniform mat4 proj;
+    uniform mat4 model;
+    uniform vec3 lightdir;
+    uniform vec3 color;
+
+    void main(void) {
+        gl_Position = proj * view * model * vec4(vpos, 1.0);
+        vec4 normal = normalize(model * vec4(vnormal,0.0));
+        float diffuse = .5 + .5*max(dot(normal, vec4(lightdir,0.0)),0.0);
+        outColor = color * diffuse;
+    }
+</script>
+<script id="phong-fs" type="notjs">
+    precision highp float;
+    varying vec3 outColor;
+    void main(void) {
+        gl_FragColor = vec4(outColor, 1.0);
+    }
+</script>
+
+<script id="ground-vs" type="notjs">
+    precision highp float;
+
+    attribute vec3 vpos;
+    attribute vec3 vnormal;
+	attribute vec2 vtexCoord;
+
+    uniform mat4 view;
+    uniform mat4 proj;
+	varying vec2 ftexCoord;
+
+
+    void main(void) {
+        gl_Position = proj * view * /*model * */vec4(vpos, 1.0);
+        vec4 normal = vec4(vnormal,0.0);
+		ftexCoord = vtexCoord;
+    }
+</script>
+<script id="ground-fs" type="notjs">
+    precision highp float;
+	varying vec2 ftexCoord;
+	uniform sampler2D texSampler;
+    void main(void) {
+		vec3 texColor = texture2D(texSampler, ftexCoord).xyz;
+        gl_FragColor = vec4(texColor, 1.0);
+    }
+</script>
+
+<script id="skybox-vs" type="notjs">
+    precision highp float;
+	uniform mat4 proj;
+	uniform mat4 model;
+	attribute vec3 vpos;
+	varying vec3 vCoords;
+	void main() {
+		gl_Position = proj * model * vec4(vpos,1.0);
+		vCoords = vpos;
+	}
+</script>
+<script id="skybox-fs" type="notjs">
+    precision highp float;
+	varying vec3 vCoords;
+	uniform samplerCube skybox;
+	void main() {
+		gl_FragColor = textureCube(skybox, vCoords);
+	}
+</script>
+</html>
